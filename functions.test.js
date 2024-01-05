@@ -1,5 +1,11 @@
 const functions = require('./functions')
 
+// beforeAll(() => console.log('I am running once before all tests'))
+// afterAll(() => console.log('I am running once after all tests'))
+
+// beforeEach(() => console.log('I am running before each test'))
+// afterEach(() => console.log('I am running after each test'))
+
 describe('Basic JEST tests', () => {
     test('Adds 2 + 2 to equal 4', () => {
         expect(functions.add(2, 2)).toBe(4)
@@ -34,12 +40,21 @@ describe('Basic JEST tests', () => {
 
 });
 
-describe('async test', () => {
+describe('async test using then & catch', () => {
     test('async ', () => {
         expect.assertions(1)
         return functions.getPosts().then(data => {
-            console.log(data);
+            // console.log(data);
             expect(data.length).toBeGreaterThan(0)
         })
+    })
+})
+
+
+describe('async test using async & await', () => {
+    test('async async', async () => {
+        expect.assertions(1)
+        const data = await functions.getPosts(1);
+        expect(data.title).toBe('Post 1');
     })
 })
